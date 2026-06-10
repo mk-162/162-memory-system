@@ -18,8 +18,8 @@ Most AI work scatters context across chats. This system keeps everything in one 
 ### 1. Clone the template
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/playbook-memory-template.git
-cd playbook-memory-template
+git clone https://github.com/mk-162/162-memory-system.git
+cd 162-memory-system
 ```
 
 ### 2. Install the Obsidian skills

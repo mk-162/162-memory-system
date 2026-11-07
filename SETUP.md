@@ -1,10 +1,12 @@
 # Setup Guide
 
+Read [AGENT-INSTRUCTIONS.md](AGENT-INSTRUCTIONS.md) first. For an existing client Brain, connect to its repository and keep its folder structure. The steps below create a new local template; cloud agents can use an authorised GitHub connection without installing Obsidian.
+
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/playbook-memory-template.git
-cd playbook-memory-template
+git clone https://github.com/mk-162/162-memory-system.git
+cd 162-memory-system
 ```
 
 ## 2. Install the Obsidian skills

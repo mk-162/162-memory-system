@@ -2,6 +2,8 @@
 
 This guide shows you how to set up the same persistent memory layer used for all projects. It combines three layers that work together to give AI agents reliable, long-term memory.
 
+For the current agent workflow, start with [AGENT-INSTRUCTIONS.md](AGENT-INSTRUCTIONS.md). It governs maintenance during each interaction, direct saving, plain-English client conversations and the Quartz publishing delay. Local client rules supply the folder paths and approval requirements.
+
 ## The Three Layers of Memory
 
 ### 1. Hermes Native Memory (Short-term)
@@ -18,7 +20,7 @@ The Playbook acts as the **curated filing cabinet**. It contains the structured 
 - Obsidian vault = your long-term memory and notebooks
 - Playbook = the organised filing cabinet you actually trust and reference
 
-## Why a Deterministic Source Matters
+## Why documented sources matter
 
 Most AI systems rely on whatever is in the current chat or model training data. This leads to:
 
@@ -27,12 +29,12 @@ Most AI systems rely on whatever is in the current chat or model training data. 
 - Lost decisions from previous conversations
 - No audit trail
 
-A deterministic source (your Obsidian vault + Playbook) gives you:
+A maintained source (your Obsidian vault + Playbook) supports:
 
-- **Consistency** — The same question produces the same answer
+- **Consistency**: answers draw on the same maintained source notes
 - **Traceability** — You can see exactly which note the answer came from
 - **Version history** — Git shows when decisions were made and by whom
-- **No hallucination on facts** — The agent is instructed to only use documented information when Phoebe mode is active
+- **Source restriction**: Phoebe mode requires documented information and citations; model errors are still possible
 - **Cumulative knowledge** — Every project adds to the system instead of disappearing after the chat ends
 
 ## How This Fits With Hermes
@@ -101,7 +103,7 @@ vault/
 - Keep one project per note in `projects/`
 - Update notes as decisions are made
 - Use frontmatter (`status`, `priority`, `tags`)
-- Trigger Phoebe mode when you need grounded, deterministic answers
+- Trigger Phoebe mode when you need answers grounded in the Brain
 - Commit regularly — this is your version-controlled memory
 
 This system gives you a durable, searchable, and reliable memory layer that works alongside Hermes native capabilities.

@@ -1,90 +1,67 @@
 # 162 Memory System
 
-A complete, working long-term memory system for AI agents using Obsidian + structured notes + deterministic mode.
+Persistent organisational memory, kept as structured, linked notes that an agent reads and maintains during the team's work.
 
-This combines three memory layers so agents have reliable, version-controlled memory instead of relying only on session context.
+People ask questions, bring research and make decisions. The agent updates the relevant notes, keeps related pages consistent and saves the changes.
 
-## The Three Layers
+## Start here, agents
 
-| Layer                    | Purpose                          | Lifespan          | Location          |
-|--------------------------|----------------------------------|-------------------|-------------------|
-| Hermes Native Memory     | Short-term working memory        | Current session   | Hermes runtime    |
-| Obsidian Vault           | Long-term structured memory      | Permanent         | `vault/` folder   |
-| Playbook                 | Curated filing cabinet           | Permanent         | `vault/` + docs   |
+Read [AGENT-INSTRUCTIONS.md](AGENT-INSTRUCTIONS.md) at the start of every session, then the connected client's README, agent instructions and schema. [AGENTS.md](AGENTS.md) provides the same entry point for tools that load that filename.
 
-**Phoebe Mode** (`Phoebe:` or `phi:`) forces the agent to answer only from the vault (deterministic mode).
+The shared instructions cover:
 
-## Quick Start (Full Setup)
+- Reading existing knowledge before answering or adding a page.
+- Reconciling new research, contradictions, duplicates and superseded material.
+- Saving authorised edits directly to `main`, with checks and protection for other people's changes.
+- Talking to clients about content and decisions in plain English.
+- Explaining the usual three-minute Quartz publishing delay separately from a successful save.
+
+A repository file cannot create a connection or guarantee an agent loads its instructions. Configure the agent to read these entry points and give its connector the access required for the task.
+
+## Connect an existing client Brain
+
+Use the client's existing repository as the source of truth. Keep its folder structure: some use `brain/`, while this template uses `vault/`.
+
+For a direct GitHub connection, each person uses their own GitHub account with access to that Brain. Verify that their chosen agent connection supports writing as well as reading. The connector determines the recorded save identity.
+
+A service such as Forge can provide its own authenticated connector instead. That requires an implemented integration and a record of which person requested each change; this template does not supply that service.
+
+Website publishing is a separate configuration. Check that the host accepts updates from the intended editors. Do not assume access to the Brain guarantees a successful website build.
+
+A starting instruction for an agent is:
+
+> Open our connected Brain, read its README and agent instructions, then follow the 162 Memory System workflow. Read before answering, maintain the relevant notes as we work, save requested edits, and tell me what changed in plain English.
+
+## Set up a new local vault
 
 ```bash
 git clone https://github.com/mk-162/162-memory-system.git
 cd 162-memory-system
-
-# Install the Obsidian skills (required)
-npx skills add https://github.com/kepano/obsidian-skills --yes --global
+npx skills add https://github.com/kepano/obsidian-skills
 ```
 
-Then open the `vault/` folder in Obsidian.
+Open `vault/` in Obsidian if you want a local viewer. A cloud agent can work through an authorised GitHub connection without the Obsidian desktop application. The [CLI](https://help.obsidian.md/cli) is available when using a running local Obsidian instance.
 
-## Agent Configuration Prompt
+| Folder | Purpose |
+| --- | --- |
+| `vault/meta/` | Rules and instructions |
+| `vault/context/` | Brand, principles and company facts |
+| `vault/projects/` | Project context, decisions and current status |
+| `vault/workflows/` | SOPs and repeatable processes |
+| `vault/tools/` | Tool and skill documentation |
 
-Copy and paste this into any Hermes setup (or save it as a custom instruction):
+Keep raw source material in the location chosen for the client and link to it from the maintained notes. Runtime chat context supplements the repository; it does not replace the organisation's durable record.
 
-```
-You are now configured to use the 162 Memory System as your long-term memory layer.
+## Ask from documented knowledge
 
-### 1. Obsidian Skills Setup
-- The memory system depends on the skills from: https://github.com/kepano/obsidian-skills
-- If not already installed, run:
-  npx skills add https://github.com/kepano/obsidian-skills --yes --global
-- Required skills: obsidian-markdown, obsidian-bases, obsidian-cli, json-canvas
+Prefix a question with `Phoebe:` or `phi:` to request an answer based only on the Brain. The agent must cite notes and identify missing information. This restriction improves traceability; it does not promise identical answers or error-free output.
 
-### 2. Memory Layers
-- Hermes native memory = short-term session memory only
-- Obsidian vault (vault/) = long-term structured memory
-- Playbook = the curated filing cabinet of authoritative knowledge
+## References
 
-### 3. Phoebe Mode (Deterministic Mode)
-When the user starts a message with `Phoebe:` or `phi:`, switch to deterministic mode:
-- Only answer from notes inside the vault/ folder
-- Cite the source note when possible
-- Do not hallucinate or use general knowledge
+- [Shared agent instructions](AGENT-INSTRUCTIONS.md)
+- [Setup guide](SETUP.md)
+- [Shareable guide](SHAREABLE-GUIDE.md)
+- [Obsidian skills](https://github.com/kepano/obsidian-skills)
+- [Andrej Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
 
-### 4. Vault Structure
-- vault/context/ → Brand, principles, company facts
-- vault/projects/ → One note per active project (use frontmatter)
-- vault/workflows/ → SOPs and repeatable processes
-- Always use the Obsidian skills when reading or writing notes
-
-### 5. Soul Update
-Treat the vault/ folder as the source of truth for all project work. Use Phoebe mode when the user wants reliable, documented answers.
-```
-
-## Folder Structure
-
-```
-vault/
-├── meta/           # Rules and instructions
-├── context/        # Brand, principles, immutable facts
-├── projects/       # One note per active project
-├── workflows/      # SOPs and repeatable processes
-└── tools/          # Skill documentation
-```
-
-## Testing & Validation
-
-This system has been designed to work with both Hermes and Claude Code (Fable 5). To validate:
-
-1. Install the skills
-2. Open the vault in Obsidian
-3. Ask the agent a question using `Phoebe:` mode
-4. Verify it only uses information from the vault
-
-## Philosophy
-
-- Version-controlled memory over scattered chats
-- Structured notes over ad-hoc context
-- Deterministic answers when needed
-- Works alongside Hermes native memory
-
-MIT License — fork and adapt freely.
+MIT License.
